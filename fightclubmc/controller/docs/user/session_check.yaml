@@ -1,0 +1,21 @@
+Session check
+---
+tags:
+  - User
+parameters:
+  - in: query
+    name: jwt
+    description: It should contain the user token
+    required: true
+    schema:
+      type: string
+    allowReserved: true
+responses:
+  200:
+    description: When a token gets successfully returned
+
+  400:
+    description: Bad request
+
+  422:
+    description: Token is invalid

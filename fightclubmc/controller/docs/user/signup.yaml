@@ -1,0 +1,38 @@
+User sign up
+---
+tags:
+  - User
+parameters:
+  - name: body
+    description: The body should contain the user login credentials
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - "email"
+        - "name"
+        - "minecraft_username"
+        - "password"
+      properties:
+        email:
+          type: "email"
+          example: "user@gmail.com"
+        password:
+          type: "string"
+          example: "12345"
+        minecraft_username:
+          type: "string"
+          example: "marcus123"
+        name:
+          type: "string"
+          example: "Marcus Kenty"
+responses:
+  200:
+    description: When a user successfully sign up
+
+  400:
+    description: Bad request
+
+  409:
+    description: User with these credentials already exists

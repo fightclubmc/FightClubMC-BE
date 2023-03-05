@@ -1,0 +1,30 @@
+User sign in
+---
+tags:
+  - User
+parameters:
+  - name: body
+    description: The body should contain the user data
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - "email"
+        - "password"
+      properties:
+        email:
+          type: "email"
+          example: "user@gmail.com"
+        password:
+          type: "string"
+          example: "12345"
+responses:
+  200:
+    description: When a user successfully logs in
+
+  400:
+    description: Bad request
+
+  404:
+    description: A user supplies incorrect credentials
