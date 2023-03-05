@@ -1,4 +1,6 @@
 from datetime import timedelta
+
+from flask import jsonify
 from flask_jwt_extended import create_access_token, jwt_required
 
 from fightclubmc.model.entity.User import User
@@ -87,3 +89,11 @@ class UserService():
             return Utils.createSuccessResponse(True, Constants.CREATED)
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
+
+    @classmethod
+    def getStaffers(cls):
+        return Utils.createList(UserRepository.getStaffers())
+
+    @classmethod
+    def getAllUsers(cls):
+        return Utils.createList(UserRepository.getAllUsers())

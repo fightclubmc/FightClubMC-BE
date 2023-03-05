@@ -1,4 +1,8 @@
+import datetime
+
 from fightclubmc.configuration.config import sql
+from fightclubmc.utils.Constants import Constants
+
 
 #
 # @author: Alberto Di Maio, albedim <dimaio.albe@gmail.com>
@@ -21,9 +25,13 @@ class User(sql.Model):
     questions: int = sql.Column(sql.Integer, nullable=False)
     messages: int = sql.Column(sql.Integer, nullable=False)
     admin: bool = sql.Column(sql.Boolean, nullable=False)
+    role: str = sql.Column(sql.String(40), nullable=False)
+    created_on: datetime = sql.Column(sql.Date, nullable=False)
 
     def __init__(self, name, email, minecraftUsername, password):
         self.name = name
+        self.created_on = datetime.datetime.now()
+        self.role = Constants.MEMBER
         self.messages = 0
         self.likes = 0
         self.questions = 0
@@ -43,5 +51,7 @@ class User(sql.Model):
             'likes': self.likes,
             'messages': self.messages,
             'questions': self.questions,
-            'admin': self.admin
+            'admin': self.admin,
+            'role': self.role,
+            'created_on': self.created_on
         }

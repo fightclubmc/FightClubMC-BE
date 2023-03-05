@@ -53,3 +53,13 @@ class UserRepository():
         user: User = cls.getUserById(userId)
         user.password = newPassword
         sql.session.commit()
+
+    @classmethod
+    def getStaffers(cls):
+        users: list[User] = sql.session.query(User).filter(User.admin == True).all()
+        return users
+
+    @classmethod
+    def getAllUsers(cls):
+        users: list[User] = sql.session.query(User).all()
+        return users

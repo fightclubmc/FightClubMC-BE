@@ -23,3 +23,5 @@ class Constants():
     PAGE_NOT_FOUND = 'This page was not found. See our documentation'
     PAGE_METHOD_NOT_ALLOWED = 'Method not allowed. See our documentation'
     PAGE_UNKNOWN_ERROR = 'Unknown error'
+
+    MEMBER = "Membro"
