@@ -58,5 +58,11 @@ def getStaffers():
     return UserService.getStaffers()
 
 
+@user.route("/get/recent", methods=['GET'])
+@cross_origin()
+def getRecent():
+    return UserService.getRecent()
+
+
 
 

@@ -1,4 +1,7 @@
+from sqlalchemy import desc
+
 from fightclubmc.configuration.config import sql
+from fightclubmc.model.entity.Like import Like
 from fightclubmc.model.entity.User import User
 
 
@@ -63,3 +66,20 @@ class UserRepository():
     def getAllUsers(cls):
         users: list[User] = sql.session.query(User).all()
         return users
+
+    @classmethod
+    def getRecent(cls):
+        users: list[User] = sql.session.query(User).order_by(desc(User.messages)).limit(10).all()
+        return users
+
+    @classmethod
+    def addLike(cls, userId):
+        like: Like = cls.getUserById(userId)
+        like.likes += 1
+        sql.session.commit()
+
+    @classmethod
+    def removeLike(cls, userId):
+        like: Like = cls.getUserById(userId)
+        like.likes -= 1
+        sql.session.commit()

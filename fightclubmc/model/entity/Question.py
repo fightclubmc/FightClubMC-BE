@@ -42,7 +42,7 @@ class Question(sql.Model):
             'closed': self.closed
         }
 
-    def toJson_Owner_Messages(self, owner, messages):
+    def toJson_Owner(self, owner):
         return {
             'category_id': self.category_id,
             'question_id': self.question_id,
@@ -51,6 +51,5 @@ class Question(sql.Model):
             'owner_id': self.owner_id,
             'name': self.name,
             'closed': self.closed,
-            'owner': owner,
-            'messages': messages
+            'owner': owner
         }

@@ -2,6 +2,7 @@ from flask import jsonify
 
 from fightclubmc.model.entity.Message import Message
 from fightclubmc.model.repository.MessageRepository import MessageRepository
+from fightclubmc.service.LikeService import LikeService
 from fightclubmc.service.UserService import UserService
 from fightclubmc.utils.Constants import Constants
 from fightclubmc.utils.Utils import Utils
@@ -23,14 +24,13 @@ class MessageService():
         return Utils.createList(messages)
 
     @classmethod
-    def getMessages(cls, questionId, toJson=True):
+    def getMessages(cls, userId, questionId):
         messages: list[Message] = MessageRepository.getMessages(questionId)
         result: list[dict] = []
         for message in messages:
             owner: dict = UserService.getUser(message.owner_id)
-            result.append(message.toJson_Owner(owner))
-        print(type(result))
-        return jsonify(result) if toJson else result
+            result.append(message.toJson_Owner(owner, likeable=LikeService.get(userId, message.message_id) is None))
+        return jsonify(result)
 
     @classmethod
     def getMessagesByCategory(cls, categoryId):

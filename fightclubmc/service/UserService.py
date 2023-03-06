@@ -96,5 +96,16 @@ class UserService():
 
     @classmethod
     def getAllUsers(cls):
-        return Utils.createList(UserRepository.getAllUsers())
+        return jsonify(UserRepository.getAllUsers())
+
+    @classmethod
+    def getRecent(cls):
+        return Utils.createList(UserRepository.getRecent())
+
+    @classmethod
+    def addLike(cls, userId):
+        UserRepository.addLike(userId)
+    @classmethod
+    def removeLike(cls, userId):
+        UserRepository.removeLike(userId)
 

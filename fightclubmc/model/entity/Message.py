@@ -30,20 +30,21 @@ class Message(sql.Model):
     def toJson(self):
         return {
             'message_id': self.message_id,
-            'likes': 0,
+            'likes': self.likes,
             'question_id': self.question_id,
             'owner_id': self.question_id,
             'created_at': self.created_at,
             'body': self.body
         }
 
-    def toJson_Owner(self, owner):
+    def toJson_Owner(self, owner, likeable):
         return {
             'message_id': self.message_id,
-            'likes': 0,
+            'likes': self.likes,
             'question_id': self.question_id,
             'owner_id': self.question_id,
             'created_at': self.created_at,
             'body': self.body,
-            'owner': owner
+            'owner': owner,
+            'likeable': likeable
         }
