@@ -31,3 +31,9 @@ class QuestionRepository():
     def getQuestionsByCategoryOf(cls, userId, categoryId):
         questions: list[Question] = sql.session.query(Question).filter(Question.category_id == categoryId).filter(Question.owner_id == userId).all()
         return questions
+
+    @classmethod
+    def add(cls, name, ownerId, categoryId):
+        question: Question = Question(name, ownerId, categoryId)
+        sql.session.add(question)
+        sql.session.commit()

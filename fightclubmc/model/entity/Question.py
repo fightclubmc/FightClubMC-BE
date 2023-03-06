@@ -36,7 +36,7 @@ class Question(sql.Model):
             'category_id': self.category_id,
             'question_id': self.question_id,
             'status': self.status,
-            'created_on': self.created_on,
+            'created_on': str(self.created_on),
             'owner_id': self.owner_id,
             'name': self.name,
             'closed': self.closed
@@ -47,7 +47,7 @@ class Question(sql.Model):
             'category_id': self.category_id,
             'question_id': self.question_id,
             'status': self.status,
-            'created_on': self.created_on,
+            'created_on': str(self.created_on),
             'owner_id': self.owner_id,
             'name': self.name,
             'closed': self.closed,

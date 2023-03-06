@@ -27,7 +27,14 @@ class UserPermissionsService():
 
     @classmethod
     def hasQuestionAccess(cls, userId, questionId):
-        return cls.isStaffer(userId) and QuestionRepository.get(questionId).owner_id == userId
+        question = QuestionRepository.get(questionId)
+        if CategoryRepository.get(question.category_id).private:
+            if cls.isStaffer(userId) or QuestionRepository.get(questionId).owner_id == userId:
+                return True
+            else:
+                return False
+        else:
+            return True
 
     @classmethod
     def isStaffer(cls, userId) -> bool:

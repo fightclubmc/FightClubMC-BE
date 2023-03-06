@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_cors import cross_origin
 
@@ -21,6 +21,12 @@ def getQuestionsByCategory(categoryId):
 @jwt_required()
 def get(questionId):
     return QuestionService.get(questionId)
+
+
+@question.route("/add", methods=['POST'])
+@cross_origin()
+def add():
+    return QuestionService.add(request.json)
 
 
 

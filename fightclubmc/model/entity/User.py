@@ -46,7 +46,6 @@ class User(sql.Model):
             'user_id': self.user_id,
             'name': self.name,
             'email': self.email,
-            'password': self.password,
             'minecraft_username': self.minecraft_username,
             'likes': self.likes,
             'messages': self.messages,

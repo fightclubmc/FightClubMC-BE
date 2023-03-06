@@ -48,4 +48,11 @@ class QuestionService():
     @classmethod
     def get(cls, questionId):
         question: Question = QuestionRepository.get(questionId)
-        return question.toJson()
+        messages = MessageService.getMessages(questionId, False)
+        owner = UserService.getUser(question.owner_id)
+        return question.toJson_Owner_Messages(owner, messages)
+
+    @classmethod
+    def add(cls, request):
+        QuestionRepository.add(request['name'], request['owner_id'], request['category_id'])
+        return Utils.createSuccessResponse(True, Constants.CREATED)

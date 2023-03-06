@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_jwt_extended import jwt_required
 from flask_cors import cross_origin
 
@@ -10,10 +10,16 @@ from fightclubmc.utils.Utils import Utils
 message: Blueprint = Blueprint('MessageController', __name__, url_prefix=Utils.getURL('message'))
 
 
-@message.route("/get/question/<questionId>", methods=['GET'])
+@message.route("/get/<questionId>/question", methods=['GET'])
 @cross_origin()
 @jwt_required()
 def get(questionId):
-    return MessageService.getMessages(questionId)
+    return MessageService.getMessages(questionId, True)
+
+
+@message.route("/add", methods=['POST'])
+@cross_origin()
+def add():
+    return MessageService.add(request.json)
 
 

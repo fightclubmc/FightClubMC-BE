@@ -36,3 +36,9 @@ class MessageRepository():
             )
         ).params(categoryId=categoryId).all()
         return messages
+
+    @classmethod
+    def add(cls, questionId, ownerId, body):
+        message: Message = Message(questionId, ownerId, body)
+        sql.session.add(message)
+        sql.session.commit()
