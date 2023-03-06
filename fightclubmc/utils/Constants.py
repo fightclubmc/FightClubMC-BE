@@ -10,6 +10,7 @@
 class Constants():
 
     NOT_FOUND: str = "This resource was not found"
+    NOT_ENOUGH_PERMISSIONS: str = "Not enough permissions"
     CREATED: str = "Created"
     FULL_SLOTS = "You can't add more"
     ALREADY_CREATED = "This resource was already created"
@@ -25,3 +26,5 @@ class Constants():
     PAGE_UNKNOWN_ERROR = 'Unknown error'
 
     MEMBER = "Membro"
+
+    QUESTION_STATUS = {'JUST_CREATED': 'DA LEGGERE', 'READING': 'IN VALUTAZIONE', 'ACCEPTED': 'ACCETTATA', 'REJECTED': 'RIFIUTATA'}

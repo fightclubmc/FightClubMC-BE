@@ -12,7 +12,7 @@ from fightclubmc.configuration.config import sql
 class Category(sql.Model):
     __tablename__ = 'categories'
     category_id: int = sql.Column(sql.Integer, primary_key=True)
-    private: str = sql.Column(sql.String(20), nullable=False)
+    private: bool = sql.Column(sql.Boolean, nullable=False)
     name: str = sql.Column(sql.String(40), nullable=False)
 
     def __init__(self, name, private):
@@ -24,4 +24,13 @@ class Category(sql.Model):
             'category_id': self.category_id,
             'name': self.name,
             'private': self.private
+        }
+
+    def toJson_Questions_Messages(self, questions, messages):
+        return {
+            'category_id': self.category_id,
+            'name': self.name,
+            'private': self.private,
+            'questions': questions,
+            'messages': messages
         }

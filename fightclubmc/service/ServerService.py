@@ -9,6 +9,8 @@ import json
 
 from pip._vendor import requests
 
+from fightclubmc.service.MessageService import MessageService
+from fightclubmc.service.QuestionService import QuestionService
 from fightclubmc.service.UserService import UserService
 
 
@@ -21,8 +23,8 @@ class ServerService():
                 json.loads(requests.get('https://mcapi.us/server/status?port=25565&ip=fightclubmc.net').text)[
                     'players']['now'],
             'online_discord_users': cls.getOnlineDiscordUsers(),
-            'messages': 0,
-            'questions': 0,
+            'messages': len(MessageService.getAllMessages()),
+            'questions': len(QuestionService.getAllQuestions()),
             'registered_users': len(UserService.getAllUsers())
         }
 

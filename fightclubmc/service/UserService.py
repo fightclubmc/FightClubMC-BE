@@ -25,7 +25,7 @@ class UserService():
         try:
             user: User = UserRepository.signin(
                 request['email'],
-                Utils.hash(request['password'])
+                request['password']
             )
             if user is not None:
                 return Utils.createSuccessResponse(True, create_access_token(
@@ -55,7 +55,7 @@ class UserService():
                     request['name'],
                     request['email'],
                     request['minecraft_username'],
-                    Utils.hash(request['password'])
+                    request['password']
                 )
                 return Utils.createSuccessResponse(True, Constants.CREATED)
             else:
@@ -97,3 +97,4 @@ class UserService():
     @classmethod
     def getAllUsers(cls):
         return Utils.createList(UserRepository.getAllUsers())
+

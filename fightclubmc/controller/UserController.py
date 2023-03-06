@@ -51,6 +51,7 @@ def get(userId):
 def signup():
     return UserService.signup(request.json)
 
+
 @user.route("/get/staffers", methods=['GET'])
 @cross_origin()
 def getStaffers():

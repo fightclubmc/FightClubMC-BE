@@ -53,5 +53,5 @@ class User(sql.Model):
             'questions': self.questions,
             'admin': self.admin,
             'role': self.role,
-            'created_on': self.created_on
+            'created_on': str(self.created_on)
         }
