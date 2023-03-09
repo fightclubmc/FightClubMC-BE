@@ -22,7 +22,7 @@ class ServerService():
             'online_players':
                 json.loads(requests.get('https://mcapi.us/server/status?port=25565&ip=fightclubmc.net').text)[
                     'players']['now'],
-            'online_discord_users': cls.getOnlineDiscordUsers(),
+            # 'online_discord_users': cls.getOnlineDiscordUsers(),
             'messages': len(MessageService.getAllMessages()),
             'questions': len(QuestionService.getAllQuestions()),
             'registered_users': len(UserService.getAllUsers())

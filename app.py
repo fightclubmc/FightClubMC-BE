@@ -2,7 +2,7 @@ from flask_jwt_extended import JWTManager
 
 from fightclubmc.configuration.config import app, sql
 from fightclubmc.controller import UserController, ServerController, CategoryController, QuestionController, \
-    MessageController, LikeController
+    MessageController, LikeController, NewsController
 from fightclubmc.service.QuestionService import QuestionService
 
 # controllers init
@@ -12,6 +12,7 @@ app.register_blueprint(QuestionController.question)
 app.register_blueprint(ServerController.server)
 app.register_blueprint(LikeController.like)
 app.register_blueprint(UserController.user)
+app.register_blueprint(NewsController.news)
 
 # modules init
 JWTManager(app)

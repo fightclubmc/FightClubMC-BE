@@ -96,7 +96,7 @@ class UserService():
 
     @classmethod
     def getAllUsers(cls):
-        return jsonify(UserRepository.getAllUsers())
+        return Utils.createList(UserRepository.getAllUsers())
 
     @classmethod
     def getRecent(cls):
