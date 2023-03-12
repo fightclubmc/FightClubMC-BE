@@ -17,7 +17,7 @@ class Question(sql.Model):
     __tablename__ = 'questions'
     question_id: int = sql.Column(sql.Integer, primary_key=True)
     category_id: int = sql.Column(sql.Integer, nullable=False)
-    name: str = sql.Column(sql.String(20), nullable=False)
+    name: str = sql.Column(sql.String(64), nullable=False)
     owner_id: int = sql.Column(sql.Integer, nullable=False)
     status: str = sql.Column(sql.String(40), nullable=False)
     closed: bool = sql.Column(sql.Boolean, nullable=False)
@@ -52,4 +52,17 @@ class Question(sql.Model):
             'name': self.name,
             'closed': self.closed,
             'owner': owner
+        }
+
+    def toJson_Owner_Messages(self, owner, messages):
+        return {
+            'category_id': self.category_id,
+            'question_id': self.question_id,
+            'status': self.status,
+            'created_on': str(self.created_on),
+            'owner_id': self.owner_id,
+            'name': self.name,
+            'closed': self.closed,
+            'owner': owner,
+            'messages': messages
         }

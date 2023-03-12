@@ -26,7 +26,7 @@ class User(sql.Model):
     messages: int = sql.Column(sql.Integer, nullable=False)
     admin: bool = sql.Column(sql.Boolean, nullable=False)
     role: str = sql.Column(sql.String(40), nullable=False)
-    created_on: datetime = sql.Column(sql.Date, nullable=False)
+    created_on: datetime = sql.Column(sql.String(40), nullable=False)
 
     def __init__(self, name, email, minecraftUsername, password):
         self.name = name

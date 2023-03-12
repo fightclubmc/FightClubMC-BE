@@ -7,6 +7,7 @@ from fightclubmc.model.entity.User import User
 from fightclubmc.model.repository.UserRepository import UserRepository
 from fightclubmc.utils.Constants import Constants
 from fightclubmc.utils.Utils import Utils
+from resources.rest_service import config
 
 
 #
@@ -108,4 +109,9 @@ class UserService():
     @classmethod
     def removeLike(cls, userId):
         UserRepository.removeLike(userId)
+
+    @classmethod
+    def admin(cls, request):
+        return Utils.createSuccessResponse(True, True) if request['username'] == "a" \
+            and request['password'] == "a" else Utils.createWrongResponse(False, False, 404), 404
 

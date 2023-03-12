@@ -1,3 +1,5 @@
+from sqlalchemy import asc, desc
+
 from fightclubmc.configuration.config import sql
 from fightclubmc.model.entity.Category import Category
 from fightclubmc.model.entity.News import News
@@ -16,7 +18,7 @@ class NewsRepository():
 
     @classmethod
     def getNews(cls):
-        news: list[News] = sql.session.query(News).all()
+        news: list[News] = sql.session.query(News).order_by(desc(News.created_on)).all()
         return news
 
     @classmethod

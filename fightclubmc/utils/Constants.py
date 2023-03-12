@@ -27,4 +27,4 @@ class Constants():
 
     MEMBER = "Membro"
 
-    QUESTION_STATUS = {'JUST_CREATED': 'DA LEGGERE', 'READING': 'IN VALUTAZIONE', 'ACCEPTED': 'ACCETTATA', 'REJECTED': 'RIFIUTATA'}
+    QUESTION_STATUS = {'JUST_CREATED': 'just_created', 'READING': 'reading', 'ACCEPTED': 'accepted', 'REJECTED': 'rejected'}

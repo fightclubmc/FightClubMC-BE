@@ -1,3 +1,5 @@
+from sqlalchemy import desc, asc
+
 from fightclubmc.configuration.config import sql
 from fightclubmc.model.entity.Question import Question
 
@@ -14,7 +16,8 @@ class QuestionRepository():
 
     @classmethod
     def getQuestionsByCategory(cls, categoryId):
-        questions: list[Question] = sql.session.query(Question).filter(Question.category_id == categoryId).all()
+        questions: list[Question] = sql.session.query(Question).filter(Question.category_id == categoryId)\
+            .order_by(desc(Question.created_on)).all()
         return questions
 
     @classmethod
@@ -29,7 +32,8 @@ class QuestionRepository():
 
     @classmethod
     def getQuestionsByCategoryOf(cls, userId, categoryId):
-        questions: list[Question] = sql.session.query(Question).filter(Question.category_id == categoryId).filter(Question.owner_id == userId).all()
+        questions: list[Question] = sql.session.query(Question).filter(Question.category_id == categoryId).filter(Question.owner_id == userId)\
+            .order_by(desc(Question.created_on)).all()
         return questions
 
     @classmethod
@@ -37,3 +41,20 @@ class QuestionRepository():
         question: Question = Question(name, ownerId, categoryId)
         sql.session.add(question)
         sql.session.commit()
+
+    @classmethod
+    def changeStatus(cls, questionId, status):
+        question: Question = cls.get(questionId)
+        question.status = status
+        sql.session.commit()
+
+    @classmethod
+    def setClosed(cls, questionId, status):
+        question: Question = cls.get(questionId)
+        question.closed = status
+        sql.session.commit()
+
+    @classmethod
+    def getLastQuestion(cls, ownerId):
+        question: Question = sql.session.query(Question).filter(Question.owner_id == ownerId).order_by(desc(Question.question_id)).first()
+        return question

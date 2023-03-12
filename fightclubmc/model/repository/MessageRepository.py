@@ -1,4 +1,4 @@
-from sqlalchemy import text
+from sqlalchemy import text, asc, desc
 
 from fightclubmc.configuration.config import sql
 from fightclubmc.model.entity.Like import Like

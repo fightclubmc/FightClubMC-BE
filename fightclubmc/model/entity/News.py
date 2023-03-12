@@ -17,7 +17,7 @@ class News(sql.Model):
     owner_id: int = sql.Column(sql.Integer, nullable=False)
     title: str = sql.Column(sql.String(240), nullable=False)
     body: str = sql.Column(sql.String(1450), nullable=False)
-    created_on: datetime = sql.Column(sql.Date, nullable=False)
+    created_on: datetime = sql.Column(sql.String(40), nullable=False)
 
     def __init__(self, title, ownerId, body):
         self.title = title

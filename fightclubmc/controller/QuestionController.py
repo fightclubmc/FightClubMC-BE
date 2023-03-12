@@ -29,5 +29,12 @@ def add():
     return QuestionService.add(request.json)
 
 
+@question.route("/change/status", methods=['PUT'])
+@jwt_required()
+@cross_origin()
+def changeStatus():
+    return QuestionService.changeStatus(request.json)
+
+
 
 

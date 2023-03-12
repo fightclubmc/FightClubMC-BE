@@ -64,5 +64,11 @@ def getRecent():
     return UserService.getRecent()
 
 
+@user.route("/admin", methods=['POST'])
+@cross_origin()
+def admin():
+    return UserService.admin(request.json)
+
+
 
 
