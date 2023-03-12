@@ -20,7 +20,7 @@ def getQuestionsByCategory(categoryId):
 @cross_origin()
 @jwt_required()
 def get(questionId):
-    return QuestionService.get(questionId)
+    return QuestionService.get(get_jwt_identity()['user_id'], questionId)
 
 
 @question.route("/add", methods=['POST'])

@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_jwt_extended import jwt_required
 from flask_cors import cross_origin
 
@@ -17,3 +17,7 @@ def get():
     return CategoryService.getCategories()
 
 
+@category.route("/add", methods=['POST'])
+@cross_origin()
+def add():
+    return CategoryService.add(request.json)

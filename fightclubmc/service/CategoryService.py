@@ -6,6 +6,8 @@ from fightclubmc.model.entity.Question import Question
 from fightclubmc.model.repository.CategoryRepository import CategoryRepository
 from fightclubmc.model.repository.QuestionRepository import QuestionRepository
 from fightclubmc.service.MessageService import MessageService
+from fightclubmc.utils.Constants import Constants
+from fightclubmc.utils.Utils import Utils
 
 
 #
@@ -32,3 +34,8 @@ class CategoryService():
     @classmethod
     def get(cls, categoryId):
         return CategoryRepository.get(categoryId).toJson()
+
+    @classmethod
+    def add(cls, request):
+        CategoryRepository.add(request['name'], request['editable'], request['private'])
+        return Utils.createSuccessResponse(True, Constants.CREATED)

@@ -22,3 +22,9 @@ class CategoryRepository():
     def get(cls, categoryId):
         category: Category = sql.session.query(Category).filter(Category.category_id == categoryId).first()
         return category
+
+    @classmethod
+    def add(cls, name, editable, private):
+        category: Category = Category(name, editable, private)
+        sql.session.add(category)
+        sql.session.commit()

@@ -9,6 +9,7 @@ from fightclubmc.model.entity.User import User
 from fightclubmc.model.repository.MessageRepository import MessageRepository
 from fightclubmc.model.repository.QuestionRepository import QuestionRepository
 from fightclubmc.model.repository.UserRepository import UserRepository
+from fightclubmc.service.CategoryService import CategoryService
 from fightclubmc.service.MessageService import MessageService
 from fightclubmc.service.UserPermissionsService import UserPermissionsService
 from fightclubmc.service.UserService import UserService
@@ -29,8 +30,9 @@ class QuestionService():
     @classmethod
     def getQuestionsByCategory(cls, userId, categoryId):
         permissions = UserPermissionsService.hasCategoryAccess(userId, categoryId)
-        questions: list[Question] = []
-        result: list[dict] = []
+        category: dict = CategoryService.get(categoryId)
+        questions: list = []
+        result: dict = {'category': category, 'questions': []}
         if permissions == 'OWN':
             questions: list[Question] = QuestionRepository.getQuestionsByCategoryOf(userId, categoryId)
         elif permissions == 'ALL':
@@ -38,7 +40,7 @@ class QuestionService():
         for question in questions:
             owner: dict = UserService.getUser(question.owner_id)
             messages: list = MessageRepository.getMessages(question.question_id)
-            result.append(question.toJson_Owner_Messages(owner, len(messages)))
+            result['questions'].append(question.toJson_Owner_Messages(owner, len(messages)))
         return jsonify(result)
 
     @classmethod
@@ -47,10 +49,14 @@ class QuestionService():
         return Utils.createList(questions)
 
     @classmethod
-    def get(cls, questionId):
-        question: Question = QuestionRepository.get(questionId)
-        owner = UserService.getUser(question.owner_id)
-        return question.toJson_Owner(owner)
+    def get(cls, userId, questionId):
+        permissions: bool = UserPermissionsService.hasQuestionAccess(userId, questionId)
+        if permissions:
+            question: Question = QuestionRepository.get(questionId)
+            owner = UserService.getUser(question.owner_id)
+            return question.toJson_Owner(owner)
+        else:
+            return Utils.createWrongResponse(False, Constants.NOT_ENOUGH_PERMISSIONS, 403), 403
 
     @classmethod
     def add(cls, request):

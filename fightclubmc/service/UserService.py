@@ -112,6 +112,8 @@ class UserService():
 
     @classmethod
     def admin(cls, request):
-        return Utils.createSuccessResponse(True, True) if request['username'] == "a" \
-            and request['password'] == "a" else Utils.createWrongResponse(False, False, 404), 404
+        if request['username'] == config['admin']['username'] and request['password'] == config['admin']['password']:
+            return Utils.createSuccessResponse(True, True)
+        else:
+            return Utils.createWrongResponse(False, False, 404), 404
 

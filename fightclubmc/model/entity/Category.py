@@ -12,16 +12,19 @@ from fightclubmc.configuration.config import sql
 class Category(sql.Model):
     __tablename__ = 'categories'
     category_id: int = sql.Column(sql.Integer, primary_key=True)
+    editable: bool = sql.Column(sql.Boolean, nullable=False)
     private: bool = sql.Column(sql.Boolean, nullable=False)
     name: str = sql.Column(sql.String(40), nullable=False)
 
-    def __init__(self, name, private):
+    def __init__(self, name, editable, private):
         self.name = name
+        self.editable = editable
         self.private = private
 
     def toJson(self):
         return {
             'category_id': self.category_id,
+            'editable': self.editable,
             'name': self.name,
             'private': self.private
         }
@@ -30,6 +33,7 @@ class Category(sql.Model):
         return {
             'category_id': self.category_id,
             'name': self.name,
+            'editable': self.editable,
             'private': self.private,
             'questions': questions,
             'messages': messages
