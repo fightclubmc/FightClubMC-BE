@@ -70,5 +70,11 @@ def admin():
     return UserService.admin(request.json)
 
 
+@user.route("/change/role", methods=['PUT'])
+@cross_origin()
+def changeRole():
+    return UserService.changeRole(request.json)
+
+
 
 

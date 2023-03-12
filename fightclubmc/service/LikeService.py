@@ -26,13 +26,16 @@ class LikeService():
 
     @classmethod
     def add(cls, request):
-        if cls.get(request['user_id'], request['message_id']) is not None:
-            return Utils.createWrongResponse(False, Constants.ALREADY_CREATED, 401), 401
-        else:
-            LikeRepository.add(request['user_id'], request['message_id'])
-            MessageRepository.addLike(request['message_id'])
-            UserService.addLike(request['user_id'])
-            return Utils.createSuccessResponse(True, Constants.CREATED), 200
+        try:
+            if cls.get(request['user_id'], request['message_id']) is not None:
+                return Utils.createWrongResponse(False, Constants.ALREADY_CREATED, 401), 401
+            else:
+                LikeRepository.add(request['user_id'], request['message_id'])
+                MessageRepository.addLike(request['message_id'])
+                UserService.addLike(request['user_id'])
+                return Utils.createSuccessResponse(True, Constants.CREATED), 200
+        except KeyError:
+            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
 
     @classmethod
     def remove(cls, userId, messageId):

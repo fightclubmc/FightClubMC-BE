@@ -35,8 +35,11 @@ class NewsService():
 
     @classmethod
     def add(cls, request):
-        NewsRepository.add(request['title'], request['body'], request['owner_id'])
-        users: list = UserService.getAllUsers()
-        for user in users:
-            Utils.sendNewsEmail(request['title'], request['body'], user['email'])
-        return Utils.createSuccessResponse(True, Constants.CREATED)
+        try:
+            NewsRepository.add(request['title'], request['body'], request['owner_id'])
+            users: list = UserService.getAllUsers()
+            for user in users:
+                Utils.sendNewsEmail(request['title'], request['body'], user['email'])
+            return Utils.createSuccessResponse(True, Constants.CREATED)
+        except KeyError:
+            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400

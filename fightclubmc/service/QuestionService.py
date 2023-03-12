@@ -60,14 +60,20 @@ class QuestionService():
 
     @classmethod
     def add(cls, request):
-        QuestionRepository.add(request['name'], request['owner_id'], request['category_id'])
-        return Utils.createSuccessResponse(True, QuestionRepository.getLastQuestion(request['owner_id']).question_id)
+        try:
+            QuestionRepository.add(request['name'], request['owner_id'], request['category_id'])
+            return Utils.createSuccessResponse(True, QuestionRepository.getLastQuestion(request['owner_id']).question_id)
+        except KeyError:
+            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
 
     @classmethod
     def changeStatus(cls, request):
-        QuestionRepository.changeStatus(request['question_id'], request['status'])
-        if request['status'] == 'accepted' or request['status'] == 'rejected':
-            QuestionRepository.setClosed(request['question_id'], True)
-        else:
-            QuestionRepository.setClosed(request['question_id'], False)
-        return Utils.createSuccessResponse(True, Constants.CREATED)
+        try:
+            QuestionRepository.changeStatus(request['question_id'], request['status'])
+            if request['status'] == 'accepted' or request['status'] == 'rejected':
+                QuestionRepository.setClosed(request['question_id'], True)
+            else:
+                QuestionRepository.setClosed(request['question_id'], False)
+            return Utils.createSuccessResponse(True, Constants.CREATED)
+        except KeyError:
+            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400

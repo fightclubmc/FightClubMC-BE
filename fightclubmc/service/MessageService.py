@@ -39,5 +39,8 @@ class MessageService():
 
     @classmethod
     def add(cls, request):
-        MessageRepository.add(request['question_id'], request['owner_id'], request['body'])
-        return Utils.createSuccessResponse(True, Constants.CREATED)
+        try:
+            MessageRepository.add(request['question_id'], request['owner_id'], request['body'])
+            return Utils.createSuccessResponse(True, Constants.CREATED)
+        except KeyError:
+            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400

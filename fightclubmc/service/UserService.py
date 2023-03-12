@@ -112,8 +112,27 @@ class UserService():
 
     @classmethod
     def admin(cls, request):
-        if request['username'] == config['admin']['username'] and request['password'] == config['admin']['password']:
-            return Utils.createSuccessResponse(True, True)
-        else:
-            return Utils.createWrongResponse(False, False, 404), 404
+        try:
+            if request['username'] == config['admin']['username'] and request['password'] == config['admin']['password']:
+                return Utils.createSuccessResponse(True, True)
+            else:
+                return Utils.createWrongResponse(False, False, 404), 404
+        except KeyError:
+            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
+
+    @classmethod
+    def changeRole(cls, request):
+        try:
+            user: User = UserRepository.getUserByEmail(request['email'])
+            if user is None:
+                return Utils.createWrongResponse(False, Constants.NOT_FOUND, 404), 44
+            else:
+                UserRepository.changeRole(user, request['role'])
+                if request['role'] == 'Member':
+                    UserRepository.setAdmin(user, False)
+                else:
+                    UserRepository.setAdmin(user, True)
+                return Utils.createSuccessResponse(True, Constants.CREATED)
+        except KeyError:
+            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
 

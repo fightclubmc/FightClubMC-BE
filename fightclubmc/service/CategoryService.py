@@ -37,5 +37,8 @@ class CategoryService():
 
     @classmethod
     def add(cls, request):
-        CategoryRepository.add(request['name'], request['editable'], request['private'])
-        return Utils.createSuccessResponse(True, Constants.CREATED)
+        try:
+            CategoryRepository.add(request['name'], request['editable'], request['private'])
+            return Utils.createSuccessResponse(True, Constants.CREATED)
+        except KeyError:
+            return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400

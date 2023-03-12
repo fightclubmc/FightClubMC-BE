@@ -83,3 +83,13 @@ class UserRepository():
         like: Like = cls.getUserById(userId)
         like.likes -= 1
         sql.session.commit()
+
+    @classmethod
+    def changeRole(cls, user, role):
+        user.role = role
+        sql.session.commit()
+
+    @classmethod
+    def setAdmin(cls, user, admin):
+        user.admin = admin
+        sql.session.commit()

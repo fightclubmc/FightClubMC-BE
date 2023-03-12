@@ -42,7 +42,7 @@ class Message(sql.Model):
             'message_id': self.message_id,
             'likes': self.likes,
             'question_id': self.question_id,
-            'owner_id': self.question_id,
+            'owner_id': self.owner_id,
             'created_at': self.created_at,
             'body': self.body,
             'owner': owner,
