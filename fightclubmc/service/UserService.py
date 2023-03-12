@@ -72,7 +72,7 @@ class UserService():
         else:
             token: str = Utils.createLink(140)
             UserRepository.createForgottenPasswordToken(user, token)
-            # Utils.sendPasswordForgottenEmail(user.name, user.email, token)
+            Utils.sendPasswordForgottenEmail(user.email, token)
             return Utils.createSuccessResponse(True, Constants.CREATED), 200
 
     @classmethod

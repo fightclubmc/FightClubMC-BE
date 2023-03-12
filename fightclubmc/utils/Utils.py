@@ -1,6 +1,7 @@
 import datetime
 import random
 import smtplib
+from email.message import EmailMessage
 
 from flask import jsonify
 
@@ -79,16 +80,27 @@ class Utils():
         return link
 
     @classmethod
-    def sendWelcomeEmail(cls, name, email):
+    def sendNewsEmail(cls, title, body, email):
+        msg = EmailMessage()
+        msg.set_content(body)
+        msg['Subject'] = title
+        msg['From'] = Constants.EMAIL
+        msg['To'] = email
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
         server.login(Constants.EMAIL, Constants.PASSWORD)
-        server.sendmail(Constants.EMAIL, email, Constants.WELCOME_EMAIL.replace("{name}", name))
+        server.send_message(msg)
+        server.quit()
 
     @classmethod
-    def sendPasswordForgottenEmail(cls, name, email, token):
+    def sendPasswordForgottenEmail(cls, email, token):
+        msg = EmailMessage()
+        msg.set_content(Constants.PASSWORD_FORGOTTEN_EMAIL.replace("{token}", token))
+        msg['Subject'] = 'Recupera la tua password'
+        msg['From'] = Constants.EMAIL
+        msg['To'] = email
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
         server.login(Constants.EMAIL, Constants.PASSWORD)
-        server.sendmail(Constants.EMAIL, email, Constants.PASSWORD_FORGOTTEN_EMAIL
-                        .replace("{name}", name).replace("{token}", token))
+        server.send_message(msg)
+        server.quit()
