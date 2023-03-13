@@ -30,7 +30,11 @@ class MessageService():
         result: list[dict] = []
         for message in messages:
             owner: dict = UserService.getUser(message.owner_id)
-            result.append(message.toJson_Owner(owner, likeable=LikeService.get(userId, message.message_id) is None))
+            result.append(message.toJson_Owner(
+                owner,
+                likeable=LikeService.get(userId, message.message_id) is None,
+                removable=userId == message.owner_id or UserService.getUser(userId)['admin'])
+            )
         return jsonify(result)
 
     @classmethod
