@@ -62,6 +62,7 @@ class QuestionService():
     def add(cls, request):
         try:
             QuestionRepository.add(request['name'], request['owner_id'], request['category_id'])
+            UserService.addQuestion(request['owner_id'])
             return Utils.createSuccessResponse(True, QuestionRepository.getLastQuestion(request['owner_id']).question_id)
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400

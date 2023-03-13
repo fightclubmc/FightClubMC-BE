@@ -74,14 +74,26 @@ class UserRepository():
 
     @classmethod
     def addLike(cls, userId):
-        like: Like = cls.getUserById(userId)
-        like.likes += 1
+        user: User = cls.getUserById(userId)
+        user.likes += 1
+        sql.session.commit()
+        
+    @classmethod
+    def addQuestion(cls, userId):
+        user: User = cls.getUserById(userId)
+        user.questions += 1
+        sql.session.commit()
+              
+    @classmethod
+    def addMessage(cls, userId):
+        user: User = cls.getUserById(userId)
+        user.messages += 1
         sql.session.commit()
 
     @classmethod
     def removeLike(cls, userId):
-        like: Like = cls.getUserById(userId)
-        like.likes -= 1
+        user: User = cls.getUserById(userId)
+        user.likes -= 1
         sql.session.commit()
 
     @classmethod

@@ -25,4 +25,4 @@ def create_app():
 
 
 if __name__ == '__main__':
-    create_app().run(host="192.168.1.10")
+    create_app().run()

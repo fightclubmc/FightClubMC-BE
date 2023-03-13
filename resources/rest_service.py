@@ -1,7 +1,7 @@
 config = {
   "name": "FightClubMC",
   "author": "albedim",
-  "version": "1.4.5",
+  "version": "1.5.0",
   "admin": {
     "username": "a",
     "password": "a"
@@ -16,6 +16,7 @@ config = {
     "1.3.0 - Responses are now correctly ordered",
     "1.3.5 - Users can add categories now. It was added the field: 'editable' in the category entity. it checks if users can add questions to category or not",
     "1.4.0 - Email system was added",
-    "1.4.5 - Admins can change user's role now"
+    "1.4.5 - Admins can change user's role now",
+    "1.5.0 - Bug Fixing"
   ]
 }

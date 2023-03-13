@@ -104,13 +104,6 @@ class UserService():
         return Utils.createList(UserRepository.getRecent())
 
     @classmethod
-    def addLike(cls, userId):
-        UserRepository.addLike(userId)
-    @classmethod
-    def removeLike(cls, userId):
-        UserRepository.removeLike(userId)
-
-    @classmethod
     def admin(cls, request):
         try:
             if request['username'] == config['admin']['username'] and request['password'] == config['admin']['password']:
@@ -135,4 +128,20 @@ class UserService():
                 return Utils.createSuccessResponse(True, Constants.CREATED)
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
+        
+    @classmethod
+    def addLike(cls, userId):
+        UserRepository.addLike(userId)
+        
+    @classmethod
+    def addQuestion(cls, userId):
+        UserRepository.addQuestion(userId)
+        
+    @classmethod
+    def addMessage(cls, userId):
+        UserRepository.addMessage(userId)
+    
+    @classmethod
+    def removeLike(cls, userId):
+        UserRepository.removeLike(userId)
 

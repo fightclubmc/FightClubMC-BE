@@ -8,8 +8,8 @@ from fightclubmc.model.repository.CategoryRepository import CategoryRepository
 from fightclubmc.model.repository.LikeRepository import LikeRepository
 from fightclubmc.model.repository.MessageRepository import MessageRepository
 from fightclubmc.model.repository.QuestionRepository import QuestionRepository
-from fightclubmc.service.UserService import UserService
 from fightclubmc.utils.Constants import Constants
+from fightclubmc.service.UserService import UserService
 from fightclubmc.utils.Utils import Utils
 
 
@@ -41,7 +41,7 @@ class LikeService():
     def remove(cls, userId, messageId):
         LikeRepository.remove(userId, messageId)
         MessageRepository.removeLike(messageId)
-        UserService.removeLike(userId)
+        UserQuantityService.removeLike(userId)
         return Utils.createSuccessResponse(True, Constants.CREATED)
 
     @classmethod
