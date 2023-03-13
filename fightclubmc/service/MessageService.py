@@ -2,6 +2,7 @@ from flask import jsonify
 
 from fightclubmc.model.entity.Message import Message
 from fightclubmc.model.repository.MessageRepository import MessageRepository
+from fightclubmc.model.repository.LikeRepository import LikeRepository
 from fightclubmc.service.LikeService import LikeService
 from fightclubmc.service.UserService import UserService
 from fightclubmc.utils.Constants import Constants
@@ -45,3 +46,13 @@ class MessageService():
             return Utils.createSuccessResponse(True, Constants.CREATED)
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
+        
+    @classmethod
+    def removeMessage(cls, owner, messageId):
+        message: Message = MessageRepository.get(messageId)
+        if owner['admin'] or message.owner_id == owner['user_id']:
+            MessageRepository.removeMessage(messageId)
+            LikeRepository.removeLikes(messageId)
+            return Utils.createSuccessResponse(False, Constants.CREATED), 200
+        else:
+            return Utils.createWrongResponse(False, Constants.NOT_ENOUGH_PERMISSIONS, 403), 403

@@ -22,4 +22,10 @@ def get(questionId):
 def add():
     return MessageService.add(request.json)
 
+@message.route("/remove/<messageId>", methods=['DELETE'])
+@cross_origin()
+@jwt_required()
+def remove(messageId):
+    return MessageService.removeMessage(get_jwt_identity(), messageId)
+
 

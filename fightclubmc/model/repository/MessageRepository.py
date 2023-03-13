@@ -60,3 +60,8 @@ class MessageRepository():
         like: Like = cls.get(messageId)
         like.likes -= 1
         sql.session.commit()
+        
+    @classmethod
+    def removeMessage(cls, messageId):
+        message: Message = sql.session.query(Message).filter(Message.message_id == messageId).delete()
+        sql.session.commit()

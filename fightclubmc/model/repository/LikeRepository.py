@@ -30,4 +30,9 @@ class LikeRepository():
         like: Like = cls.get(userId, messageId)
         sql.session.delete(like)
         sql.session.commit()
+        
+    @classmethod
+    def removeLikes(cls, messageId):
+        likes: list = sql.session.query(Like).filter(Like.message_id == messageId).delete()
+        sql.session.commit()
 
