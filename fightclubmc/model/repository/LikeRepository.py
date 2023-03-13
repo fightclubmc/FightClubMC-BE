@@ -27,8 +27,7 @@ class LikeRepository():
 
     @classmethod
     def remove(cls, userId, messageId):
-        like: Like = cls.get(userId, messageId)
-        sql.session.delete(like)
+        like: Like = sql.session.query(Like).filter(Like.user_id == userId).filter(Like.message_id == messageId).delete()
         sql.session.commit()
         
     @classmethod

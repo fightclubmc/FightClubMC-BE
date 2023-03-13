@@ -41,7 +41,7 @@ class LikeService():
     def remove(cls, userId, messageId):
         LikeRepository.remove(userId, messageId)
         MessageRepository.removeLike(messageId)
-        UserQuantityService.removeLike(userId)
+        UserService.removeLike(userId)
         return Utils.createSuccessResponse(True, Constants.CREATED)
 
     @classmethod
