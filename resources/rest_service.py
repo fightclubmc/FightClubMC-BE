@@ -1,7 +1,7 @@
 config = {
   "name": "FightClubMC",
   "author": "albedim",
-  "version": "1.5.5",
+  "version": "1.6.0",
   "admin": {
     "username": "a",
     "password": "a"
@@ -18,6 +18,7 @@ config = {
     "1.4.0 - Email system was added",
     "1.4.5 - Admins can change user's role now",
     "1.5.0 - Bug Fixing, Messages and questions get incremented now",
-    "1.5.5 - Messages can be removed now"
+    "1.5.5 - Messages can be removed now",
+    "1.6.0 - Bug Fixing"
   ]
 }

@@ -27,6 +27,6 @@ class Constants():
     PAGE_METHOD_NOT_ALLOWED = 'Method not allowed. See our documentation'
     PAGE_UNKNOWN_ERROR = 'Unknown error'
 
-    MEMBER = "Membro"
+    MEMBER = "Member"
 
     QUESTION_STATUS = {'JUST_CREATED': 'just_created', 'READING': 'reading', 'ACCEPTED': 'accepted', 'REJECTED': 'rejected'}
