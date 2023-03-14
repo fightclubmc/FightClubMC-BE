@@ -57,6 +57,7 @@ class MessageService():
         if owner['admin'] or message.owner_id == owner['user_id']:
             MessageRepository.removeMessage(messageId)
             LikeRepository.removeLikes(messageId)
+            UserService.removeMessage(owner['user_id'])
             return Utils.createSuccessResponse(False, Constants.CREATED), 200
         else:
             return Utils.createWrongResponse(False, Constants.NOT_ENOUGH_PERMISSIONS, 403), 403

@@ -97,6 +97,12 @@ class UserRepository():
         sql.session.commit()
 
     @classmethod
+    def removeMessage(cls, userId):
+        user: User = cls.getUserById(userId)
+        user.messages -= 1
+        sql.session.commit()
+
+    @classmethod
     def changeRole(cls, user, role):
         user.role = role
         sql.session.commit()

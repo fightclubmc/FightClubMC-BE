@@ -145,3 +145,7 @@ class UserService():
     def removeLike(cls, userId):
         UserRepository.removeLike(userId)
 
+    @classmethod
+    def removeMessage(cls, userId):
+        UserRepository.removeMessage(userId)
+
