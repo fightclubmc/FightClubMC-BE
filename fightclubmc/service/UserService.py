@@ -86,7 +86,7 @@ class UserService():
     @classmethod
     def changePassword(cls, request):
         try:
-            UserRepository.changePassword(request['user_id'], Utils.hash(request['new_password']))
+            UserRepository.changePassword(request['user_id'], request['new_password'])
             return Utils.createSuccessResponse(True, Constants.CREATED)
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
