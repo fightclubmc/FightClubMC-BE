@@ -76,5 +76,12 @@ def changeRole():
     return UserService.changeRole(request.json)
 
 
+@user.route("/is_updated", methods=['POST'])
+@cross_origin()
+@jwt_required()
+def isUpToDate():
+    return UserService.isUpToDate(get_jwt_identity())
+
+
 
 

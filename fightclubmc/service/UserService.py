@@ -128,7 +128,7 @@ class UserService():
                 return Utils.createSuccessResponse(True, Constants.CREATED)
         except KeyError:
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
-        
+
     @classmethod
     def addLike(cls, userId):
         UserRepository.addLike(userId)
@@ -148,4 +148,12 @@ class UserService():
     @classmethod
     def removeMessage(cls, userId):
         UserRepository.removeMessage(userId)
+
+    @classmethod
+    def isUpToDate(cls, requestUser):
+        user: User = UserRepository.getUserById(requestUser['user_id'])
+        if user.toJson() == requestUser:
+            return Utils.createSuccessResponse(True, Constants.UP_TO_DATE)
+        else:
+            return Utils.createWrongResponse(False, Constants.NOT_UP_TO_DATE, 406),406
 

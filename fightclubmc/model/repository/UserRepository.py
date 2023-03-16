@@ -26,20 +26,7 @@ class UserRepository():
         sql.session.add(user)
         sql.session.commit()
 
-    @classmethod
-    def getUserById(cls, userId) -> User:
-        user: User = sql.session.query(User).filter(User.user_id == userId).first()
-        return user
-
-    @classmethod
-    def getUserByEmail(cls, email):
-        user: User = sql.session.query(User).filter(User.email == email).first()
-        return user
-
-    @classmethod
-    def getUserByMinecraftUsername(cls, minecraftUsername):
-        user: User = sql.session.query(User).filter(User.minecraft_username == minecraftUsername).first()
-        return user
+    """ Password recovery """
 
     @classmethod
     def createForgottenPasswordToken(cls, user, token):
@@ -56,6 +43,8 @@ class UserRepository():
         user: User = cls.getUserById(userId)
         user.password = newPassword
         sql.session.commit()
+
+    """ Getters """
 
     @classmethod
     def getStaffers(cls):
@@ -77,13 +66,30 @@ class UserRepository():
         user: User = cls.getUserById(userId)
         user.likes += 1
         sql.session.commit()
-        
+
+    @classmethod
+    def getUserById(cls, userId) -> User:
+        user: User = sql.session.query(User).filter(User.user_id == userId).first()
+        return user
+
+    @classmethod
+    def getUserByEmail(cls, email):
+        user: User = sql.session.query(User).filter(User.email == email).first()
+        return user
+
+    @classmethod
+    def getUserByMinecraftUsername(cls, minecraftUsername):
+        user: User = sql.session.query(User).filter(User.minecraft_username == minecraftUsername).first()
+        return user
+
+    """ Data incrementation """
+
     @classmethod
     def addQuestion(cls, userId):
         user: User = cls.getUserById(userId)
         user.questions += 1
         sql.session.commit()
-              
+
     @classmethod
     def addMessage(cls, userId):
         user: User = cls.getUserById(userId)
@@ -102,6 +108,8 @@ class UserRepository():
         user.messages -= 1
         sql.session.commit()
 
+    """ Role changing """
+
     @classmethod
     def changeRole(cls, user, role):
         user.role = role
@@ -110,4 +118,10 @@ class UserRepository():
     @classmethod
     def setAdmin(cls, user, admin):
         user.admin = admin
+        sql.session.commit()
+
+    @classmethod
+    def setUpToDate(cls, userId, status):
+        user: User = cls.getUserById(userId)
+        user.up_to_date = status
         sql.session.commit()

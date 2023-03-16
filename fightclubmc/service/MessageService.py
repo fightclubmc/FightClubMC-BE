@@ -52,12 +52,12 @@ class MessageService():
             return Utils.createWrongResponse(False, Constants.INVALID_REQUEST, 400), 400
         
     @classmethod
-    def removeMessage(cls, owner, messageId):
+    def removeMessage(cls, user, messageId):
         message: Message = MessageRepository.get(messageId)
-        if owner['admin'] or message.owner_id == owner['user_id']:
+        if user['admin'] or message.owner_id == user['user_id']:
             MessageRepository.removeMessage(messageId)
             LikeRepository.removeLikes(messageId)
-            UserService.removeMessage(owner['user_id'])
+            UserService.removeMessage(message.owner_id)
             return Utils.createSuccessResponse(False, Constants.CREATED), 200
         else:
             return Utils.createWrongResponse(False, Constants.NOT_ENOUGH_PERMISSIONS, 403), 403

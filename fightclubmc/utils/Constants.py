@@ -10,6 +10,8 @@
 class Constants():
 
     NOT_FOUND: str = "This resource was not found"
+    UP_TO_DATE: str = "Entity up to date"
+    NOT_UP_TO_DATE: str = "Entity not up to date"
     NOT_ENOUGH_PERMISSIONS: str = "Not enough permissions"
     CREATED: str = "Created"
     FULL_SLOTS = "You can't add more"
