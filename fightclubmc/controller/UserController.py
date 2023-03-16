@@ -15,13 +15,6 @@ def signin():
     return UserService.signin(request.json)
 
 
-@user.route("/session_check", methods=['GET'])
-@cross_origin()
-@jwt_required()
-def isExpired():
-    return get_jwt_identity()
-
-
 @user.route("/password_forgotten_token/<email>", methods=['PUT'])
 @cross_origin()
 def createPasswordForgottenToken(email):
@@ -76,7 +69,7 @@ def changeRole():
     return UserService.changeRole(request.json)
 
 
-@user.route("/is_updated", methods=['POST'])
+@user.route("/session_check", methods=['GET'])
 @cross_origin()
 @jwt_required()
 def isUpToDate():
